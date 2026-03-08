@@ -12,6 +12,7 @@ export default function Navbar() {
     { href: "/", label: "Accueil" },
     { href: "/services", label: "Services" },
     { href: "/a-propos", label: "A Propos" },
+    { href: "/simulateur", label: "Simulateur" },
     { href: "/contact", label: "Contact" },
   ];
 
