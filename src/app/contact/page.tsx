@@ -38,6 +38,35 @@ export default function ContactPage() {
     <>
       <section className="bg-gradient-to-br from-red-600 to-blue-900 py-20 relative overflow-hidden">
         <div className="absolute inset-0 bg-black/20" />
+
+        {/* SVG decorative drawings */}
+        <svg className="absolute inset-0 w-full h-full pointer-events-none" xmlns="http://www.w3.org/2000/svg">
+          {/* Envelope / mail icon outline */}
+          <g transform="translate(12%, 40%)" opacity="0.06">
+            <rect x="-30" y="-20" width="60" height="40" rx="4" fill="none" stroke="white" strokeWidth="1.5" />
+            <polyline points="-30,-20 0,5 30,-20" fill="none" stroke="white" strokeWidth="1.5" />
+          </g>
+
+          {/* Phone icon outline */}
+          <g transform="translate(88%, 60%)" opacity="0.05">
+            <path d="M-8,-20 C-8,-20 -12,-8 -6,2 C0,12 10,18 10,18 L16,12 L8,0 L4,4 C4,4 -2,-4 -4,-10 L0,-14 Z" fill="none" stroke="white" strokeWidth="1.5" />
+          </g>
+
+          {/* Connection lines */}
+          <path d="M0,30% Q30%,20% 60%,35% T100%,25%" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="1" className="geo-line" />
+          <path d="M5%,75% Q40%,50% 80%,30%" fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="1.5" strokeLinecap="round" className="flight-path-delayed" />
+
+          {/* Signal waves from pin */}
+          <circle cx="50%" cy="80%" r="15" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="1" />
+          <circle cx="50%" cy="80%" r="30" fill="none" stroke="rgba(255,255,255,0.04)" strokeWidth="1" />
+          <circle cx="50%" cy="80%" r="45" fill="none" stroke="rgba(255,255,255,0.02)" strokeWidth="1" />
+          <circle cx="50%" cy="80%" r="3" fill="rgba(255,255,255,0.12)" />
+
+          {/* Waypoints */}
+          <circle cx="5%" cy="75%" r="2.5" fill="rgba(255,255,255,0.12)" />
+          <circle cx="80%" cy="30%" r="2.5" fill="rgba(255,255,255,0.12)" />
+        </svg>
+
         <div className="relative max-w-7xl mx-auto px-4 text-center">
           <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-4xl sm:text-5xl font-extrabold text-white">Contactez-Nous</motion.h1>
           <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="mt-4 text-white/80 text-lg max-w-2xl mx-auto">

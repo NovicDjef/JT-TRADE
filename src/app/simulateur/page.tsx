@@ -800,8 +800,16 @@ function EnglishTestStep({
 // ===========================
 // CRS CALCULATION (uses NCLC levels now)
 // ===========================
-function calculateCRS(data: Record<string, string>, frenchNclc: NclcLevels, englishClb: NclcLevels | null) {
+interface CRSResult {
+  score: number;
+  frenchBonus: number;
+  bilingualBonus: number;
+}
+
+function calculateCRS(data: Record<string, string>, frenchNclc: NclcLevels, englishClb: NclcLevels | null): CRSResult {
   let score = 0;
+  let frenchBonus = 0;
+  let bilingualBonus = 0;
 
   // Age
   const age = parseInt(data.age) || 0;
@@ -867,15 +875,23 @@ function calculateCRS(data: Record<string, string>, frenchNclc: NclcLevels, engl
   if (data.canadianEducation === "oui-3+") score += 30;
   if (data.siblingCanada === "oui") score += 15;
 
-  // French language bonus
+  // French language bonus (+25 if NCLC 7+ in all 4 French competencies)
   const minFrench = Math.min(...frenchLevels);
-  if (minFrench >= 7) score += 25;
-  if (minFrench >= 7 && englishClb) {
-    const minEng = Math.min(englishClb.co, englishClb.ce, englishClb.eo, englishClb.ee);
-    if (minEng >= 5) score += 25;
+  if (minFrench >= 7) {
+    frenchBonus = 25;
+    score += 25;
   }
 
-  return Math.min(score, 1200);
+  // Bilingual bonus (+25 additional if French NCLC 7+ AND English CLB 5+)
+  if (minFrench >= 7 && englishClb) {
+    const minEng = Math.min(englishClb.co, englishClb.ce, englishClb.eo, englishClb.ee);
+    if (minEng >= 5) {
+      bilingualBonus = 25;
+      score += 25;
+    }
+  }
+
+  return { score: Math.min(score, 1200), frenchBonus, bilingualBonus };
 }
 
 // ===========================
@@ -890,7 +906,7 @@ function ExpressEntrySimulator() {
     canadaExperience: "0", foreignExperience: "0", jobOffer: "non",
     provincialNomination: "non", canadianEducation: "non", siblingCanada: "non",
   });
-  const [result, setResult] = useState<{ score: number; eligible: boolean } | null>(null);
+  const [result, setResult] = useState<{ score: number; eligible: boolean; frenchBonus: number; bilingualBonus: number } | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -899,8 +915,8 @@ function ExpressEntrySimulator() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!frenchNclc) return;
-    const score = calculateCRS(data, frenchNclc, englishClb);
-    setResult({ score, eligible: score >= 450 });
+    const crs = calculateCRS(data, frenchNclc, englishClb);
+    setResult({ score: crs.score, eligible: crs.score >= 450, frenchBonus: crs.frenchBonus, bilingualBonus: crs.bilingualBonus });
     setStep("result");
   };
 
@@ -998,6 +1014,46 @@ function ExpressEntrySimulator() {
               <NclcBadge label="CE" level={frenchNclc.ce} minRequired={7} />
               <NclcBadge label="EO" level={frenchNclc.eo} minRequired={7} />
               <NclcBadge label="EE" level={frenchNclc.ee} minRequired={7} />
+            </div>
+          </div>
+        )}
+
+        {/* Language bonus display */}
+        {(result.frenchBonus > 0 || result.bilingualBonus > 0) && (
+          <div className="mt-6 max-w-md mx-auto">
+            <p className="text-sm font-semibold text-gray-700 mb-2 text-left">Bonus langue :</p>
+            <div className="space-y-2">
+              {result.frenchBonus > 0 && (
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.5 }}
+                  className="flex items-center justify-between bg-blue-50 border border-blue-200 rounded-xl px-4 py-3"
+                >
+                  <div className="flex items-center gap-2">
+                    <CheckCircle size={18} className="text-blue-600" />
+                    <span className="text-sm text-blue-800">Bonus francais (NCLC 7+ dans les 4 competences)</span>
+                  </div>
+                  <span className="font-bold text-blue-700">+25 pts</span>
+                </motion.div>
+              )}
+              {result.bilingualBonus > 0 && (
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.7 }}
+                  className="flex items-center justify-between bg-purple-50 border border-purple-200 rounded-xl px-4 py-3"
+                >
+                  <div className="flex items-center gap-2">
+                    <CheckCircle size={18} className="text-purple-600" />
+                    <span className="text-sm text-purple-800">Bonus bilingue (francais NCLC 7+ et anglais CLB 5+)</span>
+                  </div>
+                  <span className="font-bold text-purple-700">+25 pts</span>
+                </motion.div>
+              )}
+              <p className="text-xs text-gray-500 text-right">
+                Total bonus : +{result.frenchBonus + result.bilingualBonus} points inclus dans votre score
+              </p>
             </div>
           </div>
         )}
@@ -1250,7 +1306,7 @@ function ArrimaSimulator() {
           un test de langue francaise officiel.
         </p>
         <p className="text-gray-500 text-sm mb-8">
-          Le Quebec exige un minimum de NCLC 5 dans les 4 competences pour le PRTQ.
+          Le Quebec exige un minimum de NCLC 5 dans les 4 competences pour le PSTQ.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link href="/services#cours-tcf-tef" className="inline-flex items-center justify-center gap-2 bg-blue-800 text-white px-6 py-3 rounded-full font-bold hover:bg-blue-900 transition-all">
@@ -1466,6 +1522,35 @@ export default function SimulateurPage() {
       <section className="bg-gradient-to-br from-red-600 to-blue-900 py-20 relative overflow-hidden">
         <div className="absolute inset-0 bg-black/20" />
         <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: "radial-gradient(circle, #fff 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
+
+        {/* SVG decorative drawings */}
+        <svg className="absolute inset-0 w-full h-full pointer-events-none" xmlns="http://www.w3.org/2000/svg">
+          {/* Calculator / chart icon */}
+          <g transform="translate(10%, 35%)" opacity="0.06">
+            <rect x="-20" y="-25" width="40" height="50" rx="3" fill="none" stroke="white" strokeWidth="1.5" />
+            <line x1="-12" y1="-10" x2="12" y2="-10" stroke="white" strokeWidth="1" />
+            <rect x="-12" y="-2" width="8" height="12" fill="none" stroke="white" strokeWidth="1" />
+            <rect x="4" y="4" width="8" height="6" fill="none" stroke="white" strokeWidth="1" />
+          </g>
+
+          {/* Bar chart rising */}
+          <g transform="translate(88%, 45%)" opacity="0.05">
+            <rect x="-24" y="5" width="8" height="15" fill="none" stroke="white" strokeWidth="1" />
+            <rect x="-12" y="-5" width="8" height="25" fill="none" stroke="white" strokeWidth="1" />
+            <rect x="0" y="-15" width="8" height="35" fill="none" stroke="white" strokeWidth="1" />
+            <rect x="12" y="-25" width="8" height="45" fill="none" stroke="white" strokeWidth="1" />
+          </g>
+
+          {/* Geographic curves */}
+          <path d="M0,60% Q25%,40% 50%,55% T100%,45%" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="1" className="geo-line" />
+          <path d="M15%,85% Q50%,50% 85%,20%" fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="1.5" strokeLinecap="round" className="flight-path" />
+
+          {/* Waypoints */}
+          <circle cx="15%" cy="85%" r="2.5" fill="rgba(255,255,255,0.12)" />
+          <circle cx="85%" cy="20%" r="2.5" fill="rgba(255,255,255,0.12)" />
+          <circle cx="50%" cy="55%" r="1.5" fill="rgba(255,255,255,0.08)" />
+        </svg>
+
         <div className="relative max-w-7xl mx-auto px-4 text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
             <Calculator className="mx-auto text-white/80 mb-4" size={48} />
@@ -1492,7 +1577,19 @@ export default function SimulateurPage() {
               onClick={() => setActiveTab("arrima")}
               className={`flex-1 py-4 px-6 rounded-xl font-bold text-sm sm:text-base transition-all duration-300 ${activeTab === "arrima" ? "bg-white text-blue-900 shadow-lg" : "text-gray-500 hover:text-gray-700"}`}
             >
-              <span className="block text-lg sm:text-xl">{"\u269C\uFE0F"}</span>
+              <span className="block mb-1">
+                <svg viewBox="0 0 30 20" className="inline-block w-7 h-5 rounded-sm shadow-sm" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="30" height="20" fill="#003DA5" />
+                  {/* White cross */}
+                  <rect x="12.5" y="0" width="5" height="20" fill="white" />
+                  <rect x="0" y="7.5" width="30" height="5" fill="white" />
+                  {/* Fleur-de-lis in 4 quadrants */}
+                  <text x="6.25" y="6" textAnchor="middle" dominantBaseline="central" fill="white" fontSize="5" fontFamily="serif">&#x269C;</text>
+                  <text x="23.75" y="6" textAnchor="middle" dominantBaseline="central" fill="white" fontSize="5" fontFamily="serif">&#x269C;</text>
+                  <text x="6.25" y="14.5" textAnchor="middle" dominantBaseline="central" fill="white" fontSize="5" fontFamily="serif">&#x269C;</text>
+                  <text x="23.75" y="14.5" textAnchor="middle" dominantBaseline="central" fill="white" fontSize="5" fontFamily="serif">&#x269C;</text>
+                </svg>
+              </span>
               Arrima (Quebec)
             </button>
           </div>
@@ -1501,7 +1598,7 @@ export default function SimulateurPage() {
           <div className={`mb-8 p-4 rounded-xl text-sm ${activeTab === "express" ? "bg-red-50 text-red-700 border border-red-200" : "bg-blue-50 text-blue-800 border border-blue-200"}`}>
             {activeTab === "express"
               ? "Le Systeme de classement global (CRS) classe les candidats de l'Entree express. Score maximum: 1200 points. Le seuil d'invitation varie (generalement ~450-500 points). Niveau minimum requis : NCLC 7 dans les 4 competences."
-              : "Arrima est le portail d'immigration du Quebec. Il selectionne les candidats les mieux classes pour le Programme regulier des travailleurs qualifies (PRTQ). Niveau minimum requis : NCLC 5 dans les 4 competences."}
+              : "Arrima est le portail d'immigration du Quebec. Il selectionne les candidats les mieux classes pour le Programme regulier des travailleurs qualifies (PSTQ). Niveau minimum requis : NCLC 5 dans les 4 competences."}
           </div>
 
           {/* Calculator */}

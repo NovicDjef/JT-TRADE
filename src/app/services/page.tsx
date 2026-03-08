@@ -18,6 +18,36 @@ export default function ServicesPage() {
     <>
       <section className="bg-gradient-to-br from-red-600 to-blue-900 py-20 relative overflow-hidden">
         <div className="absolute inset-0 bg-black/20" />
+
+        {/* SVG decorative drawings */}
+        <svg className="absolute inset-0 w-full h-full pointer-events-none" xmlns="http://www.w3.org/2000/svg">
+          {/* Globe outline */}
+          <circle cx="85%" cy="50%" r="120" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="1.5" />
+          <ellipse cx="85%" cy="50%" rx="120" ry="45" fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="1" />
+          <ellipse cx="85%" cy="50%" rx="50" ry="120" fill="none" stroke="rgba(255,255,255,0.04)" strokeWidth="1" />
+          <line x1="85%" y1="calc(50% - 120px)" x2="85%" y2="calc(50% + 120px)" stroke="rgba(255,255,255,0.04)" strokeWidth="1" />
+
+          {/* Flight path curves */}
+          <path d="M5%,70% Q25%,20% 50%,40% T95%,25%" fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="1.5" strokeLinecap="round" className="flight-path" />
+          <path d="M0,40% Q30%,55% 60%,35% T100%,50%" fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="1" className="geo-line" />
+
+          {/* Waypoints */}
+          <circle cx="5%" cy="70%" r="3" fill="rgba(255,255,255,0.15)" />
+          <circle cx="95%" cy="25%" r="3" fill="rgba(255,255,255,0.15)" />
+          <circle cx="50%" cy="40%" r="2" fill="rgba(255,255,255,0.1)" />
+
+          {/* Compass rose at bottom-left */}
+          <g transform="translate(80, 140)" opacity="0.07">
+            <circle cx="0" cy="0" r="30" fill="none" stroke="white" strokeWidth="1" />
+            <line x1="0" y1="-35" x2="0" y2="35" stroke="white" strokeWidth="1" />
+            <line x1="-35" y1="0" x2="35" y2="0" stroke="white" strokeWidth="1" />
+            <polygon points="0,-28 4,-8 -4,-8" fill="white" />
+          </g>
+
+          {/* Dotted latitude line */}
+          <path d="M0,80% Q50%,75% 100%,82%" fill="none" stroke="rgba(255,255,255,0.04)" strokeWidth="1" strokeDasharray="6 8" className="geo-line-reverse" />
+        </svg>
+
         <div className="relative max-w-7xl mx-auto px-4 text-center">
           <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-4xl sm:text-5xl font-extrabold text-white">Nos Services</motion.h1>
           <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="mt-4 text-white/80 text-lg max-w-2xl mx-auto">

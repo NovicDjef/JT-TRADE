@@ -19,6 +19,13 @@ export default function WhyUs() {
       <div className="absolute top-20 right-20 w-64 h-64 bg-red-100/40 rounded-full blur-3xl" />
       <div className="absolute bottom-20 left-20 w-48 h-48 bg-blue-100/30 rounded-full blur-3xl" />
 
+      {/* Geographic traces */}
+      <svg className="absolute inset-0 w-full h-full pointer-events-none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,40% Q25%,30% 50%,42% T100%,35%" fill="none" stroke="rgba(220,38,38,0.05)" strokeWidth="1" className="geo-line" />
+        <path d="M0,75% Q40%,68% 75%,78% T100%,72%" fill="none" stroke="rgba(30,58,138,0.04)" strokeWidth="1" className="geo-line-slow" />
+        <circle cx="50%" cy="42%" r="2" fill="rgba(220,38,38,0.08)" />
+      </svg>
+
       <div className="relative max-w-7xl mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 30 }}

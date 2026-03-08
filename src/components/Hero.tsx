@@ -38,6 +38,29 @@ export default function Hero() {
         <Image src="/images/globe-network.jpg" alt="" fill className="object-contain" priority />
       </div>
 
+      {/* Geographic trace lines */}
+      <svg className="absolute inset-0 w-full h-full pointer-events-none" xmlns="http://www.w3.org/2000/svg">
+        {/* Latitude curves */}
+        <path d="M-50,25% Q25%,20% 50%,28% T110%,22%" fill="none" stroke="rgba(220,38,38,0.06)" strokeWidth="1.5" className="geo-line" />
+        <path d="M-50,45% Q30%,40% 60%,50% T110%,42%" fill="none" stroke="rgba(30,58,138,0.05)" strokeWidth="1" className="geo-line-reverse" />
+        <path d="M-50,70% Q20%,65% 55%,73% T110%,68%" fill="none" stroke="rgba(220,38,38,0.04)" strokeWidth="1" className="geo-line-slow" />
+        {/* Flight route curves */}
+        <path d="M15%,80% Q35%,30% 75%,20%" fill="none" stroke="rgba(220,38,38,0.1)" strokeWidth="1.5" strokeLinecap="round" className="flight-path" />
+        <path d="M10%,60% Q40%,20% 80%,45%" fill="none" stroke="rgba(30,58,138,0.08)" strokeWidth="1" strokeLinecap="round" className="flight-path-delayed" />
+        {/* Meridian arcs */}
+        <path d="M65%,-5% Q58%,30% 62%,50% T70%,105%" fill="none" stroke="rgba(30,58,138,0.04)" strokeWidth="1" className="geo-line-slow" />
+        <path d="M80%,-5% Q75%,25% 78%,55% T85%,105%" fill="none" stroke="rgba(220,38,38,0.03)" strokeWidth="1" className="geo-line" />
+        {/* Small circles - waypoints */}
+        <circle cx="75%" cy="20%" r="3" fill="rgba(220,38,38,0.15)" />
+        <circle cx="80%" cy="45%" r="2.5" fill="rgba(30,58,138,0.12)" />
+        <circle cx="15%" cy="80%" r="3" fill="rgba(220,38,38,0.12)" />
+        <circle cx="35%" cy="30%" r="2" fill="rgba(30,58,138,0.1)" />
+        {/* Dotted coordinate lines */}
+        <line x1="0" y1="35%" x2="100%" y2="35%" stroke="rgba(0,0,0,0.02)" strokeWidth="1" strokeDasharray="2 20" />
+        <line x1="0" y1="65%" x2="100%" y2="65%" stroke="rgba(0,0,0,0.02)" strokeWidth="1" strokeDasharray="2 20" />
+        <line x1="55%" y1="0" x2="55%" y2="100%" stroke="rgba(0,0,0,0.02)" strokeWidth="1" strokeDasharray="2 20" />
+      </svg>
+
       {/* Subtle grid pattern overlay */}
       <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: "radial-gradient(circle, #000 1px, transparent 1px)", backgroundSize: "30px 30px" }} />
 

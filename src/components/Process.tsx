@@ -13,7 +13,14 @@ const steps = [
 export default function Process() {
   return (
     <section className="py-24 bg-white relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4">
+      {/* Geographic traces */}
+      <svg className="absolute inset-0 w-full h-full pointer-events-none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,50% Q20%,40% 40%,55% T80%,45% T100%,50%" fill="none" stroke="rgba(220,38,38,0.04)" strokeWidth="1" className="geo-line-slow" />
+        <path d="M0,20% Q50%,15% 100%,25%" fill="none" stroke="rgba(30,58,138,0.03)" strokeWidth="1" className="geo-line" />
+        <path d="M0,85% Q50%,80% 100%,88%" fill="none" stroke="rgba(30,58,138,0.03)" strokeWidth="1" className="geo-line-reverse" />
+      </svg>
+
+      <div className="relative max-w-7xl mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}

@@ -13,8 +13,17 @@ const destinations = [
 
 export default function Destinations() {
   return (
-    <section className="py-24 bg-gradient-to-b from-white to-gray-50">
-      <div className="max-w-7xl mx-auto px-4">
+    <section className="py-24 bg-gradient-to-b from-white to-gray-50 relative overflow-hidden">
+      {/* Geographic traces */}
+      <svg className="absolute inset-0 w-full h-full pointer-events-none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10%,20% Q40%,5% 70%,25% T100%,15%" fill="none" stroke="rgba(220,38,38,0.05)" strokeWidth="1.5" className="geo-line" />
+        <path d="M0,80% Q30%,70% 60%,85% T100%,75%" fill="none" stroke="rgba(30,58,138,0.04)" strokeWidth="1" className="geo-line-reverse" />
+        <path d="M5%,50% Q50%,35% 95%,55%" fill="none" stroke="rgba(220,38,38,0.06)" strokeWidth="1" strokeLinecap="round" className="flight-path" />
+        <circle cx="5%" cy="50%" r="3" fill="rgba(220,38,38,0.1)" />
+        <circle cx="95%" cy="55%" r="3" fill="rgba(30,58,138,0.1)" />
+      </svg>
+
+      <div className="relative max-w-7xl mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}

@@ -15,6 +15,15 @@ export default function CTA() {
       {/* Grid pattern */}
       <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: "radial-gradient(circle, #fff 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
 
+      {/* Geographic flight traces */}
+      <svg className="absolute inset-0 w-full h-full pointer-events-none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,30% Q30%,10% 60%,35% T100%,20%" fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="1.5" className="geo-line" />
+        <path d="M0,70% Q40%,60% 70%,75% T100%,65%" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="1" className="geo-line-reverse" />
+        <path d="M20%,90% Q50%,40% 85%,15%" fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="1.5" strokeLinecap="round" className="flight-path" />
+        <circle cx="20%" cy="90%" r="3" fill="rgba(255,255,255,0.15)" />
+        <circle cx="85%" cy="15%" r="3" fill="rgba(255,255,255,0.15)" />
+      </svg>
+
       <div className="relative max-w-4xl mx-auto px-4 text-center">
         <motion.div
           initial={{ opacity: 0, y: 30, scale: 0.95 }}

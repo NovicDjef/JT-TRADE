@@ -32,6 +32,14 @@ export default function Services() {
       {/* Subtle background decoration */}
       <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-red-600 via-red-400 to-blue-900 opacity-20" />
 
+      {/* Geographic traces */}
+      <svg className="absolute inset-0 w-full h-full pointer-events-none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,30% Q25%,25% 50%,35% T100%,28%" fill="none" stroke="rgba(220,38,38,0.04)" strokeWidth="1" className="geo-line-slow" />
+        <path d="M0,70% Q35%,65% 65%,75% T100%,68%" fill="none" stroke="rgba(30,58,138,0.03)" strokeWidth="1" className="geo-line-reverse" />
+        <circle cx="20%" cy="25%" r="2" fill="rgba(220,38,38,0.08)" />
+        <circle cx="80%" cy="70%" r="2" fill="rgba(30,58,138,0.08)" />
+      </svg>
+
       <div className="max-w-7xl mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 30 }}

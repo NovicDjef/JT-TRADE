@@ -10,6 +10,35 @@ export default function AboutPage() {
     <>
       <section className="bg-gradient-to-br from-red-600 to-blue-900 py-20 relative overflow-hidden">
         <div className="absolute inset-0 bg-black/20" />
+
+        {/* SVG decorative drawings */}
+        <svg className="absolute inset-0 w-full h-full pointer-events-none" xmlns="http://www.w3.org/2000/svg">
+          {/* World map silhouette curves */}
+          <path d="M0,55% Q15%,45% 30%,50% T60%,42% T100%,48%" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="1" className="geo-line-slow" />
+          <path d="M0,35% Q20%,25% 45%,38% T100%,30%" fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="1" className="geo-line" />
+
+          {/* Airplane path */}
+          <path d="M10%,80% Q35%,30% 75%,20%" fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="1.5" strokeLinecap="round" className="flight-path" />
+          <circle cx="10%" cy="80%" r="3" fill="rgba(255,255,255,0.15)" />
+          <circle cx="75%" cy="20%" r="3" fill="rgba(255,255,255,0.15)" />
+
+          {/* Shield / trust symbol */}
+          <g transform="translate(90%, 65%)" opacity="0.06">
+            <path d="M0,-30 L20,0 L0,35 L-20,0 Z" fill="none" stroke="white" strokeWidth="1.5" />
+            <path d="M0,-15 L10,0 L0,18 L-10,0 Z" fill="none" stroke="white" strokeWidth="1" />
+          </g>
+
+          {/* Circular orbit lines */}
+          <circle cx="15%" cy="30%" r="60" fill="none" stroke="rgba(255,255,255,0.04)" strokeWidth="1" />
+          <circle cx="15%" cy="30%" r="90" fill="none" stroke="rgba(255,255,255,0.03)" strokeWidth="1" strokeDasharray="4 6" />
+
+          {/* Small dots constellation */}
+          <circle cx="25%" cy="25%" r="1.5" fill="rgba(255,255,255,0.12)" />
+          <circle cx="40%" cy="70%" r="1.5" fill="rgba(255,255,255,0.08)" />
+          <circle cx="70%" cy="35%" r="1.5" fill="rgba(255,255,255,0.1)" />
+          <circle cx="88%" cy="75%" r="1.5" fill="rgba(255,255,255,0.08)" />
+        </svg>
+
         <div className="relative max-w-7xl mx-auto px-4 text-center">
           <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-4xl sm:text-5xl font-extrabold text-white">A Propos de Nous</motion.h1>
           <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="mt-4 text-white/80 text-lg max-w-2xl mx-auto">

@@ -14,6 +14,14 @@ export default function Testimonials() {
     <section className="py-24 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-red-50/30 rounded-full blur-3xl" />
 
+      {/* Geographic traces */}
+      <svg className="absolute inset-0 w-full h-full pointer-events-none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,35% Q30%,25% 65%,38% T100%,30%" fill="none" stroke="rgba(220,38,38,0.04)" strokeWidth="1" className="geo-line-reverse" />
+        <path d="M15%,85% Q45%,50% 85%,20%" fill="none" stroke="rgba(30,58,138,0.05)" strokeWidth="1" strokeLinecap="round" className="flight-path-delayed" />
+        <circle cx="15%" cy="85%" r="2.5" fill="rgba(220,38,38,0.08)" />
+        <circle cx="85%" cy="20%" r="2.5" fill="rgba(30,58,138,0.08)" />
+      </svg>
+
       <div className="relative max-w-7xl mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
