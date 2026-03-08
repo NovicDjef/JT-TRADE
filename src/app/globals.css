@@ -15,18 +15,3 @@ body {
   color: var(--foreground);
   background: var(--background);
 }
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-}
-
-@layer components {
-  .gradient-red-blue {
-    background: linear-gradient(135deg, #DC2626 0%, #1E3A8A 100%);
-  }
-  .gradient-cream {
-    background: linear-gradient(180deg, #FDF2F0 0%, #FFFFFF 100%);
-  }
-}
