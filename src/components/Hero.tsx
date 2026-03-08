@@ -1,0 +1,149 @@
+"use client";
+
+import { motion } from "framer-motion";
+import Link from "next/link";
+import Image from "next/image";
+import { ArrowRight } from "lucide-react";
+
+export default function Hero() {
+  return (
+    <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-white">
+      {/* Globe background on the right */}
+      <div className="absolute right-[-10%] top-1/2 -translate-y-1/2 w-[700px] h-[700px] lg:w-[800px] lg:h-[800px] opacity-15">
+        <Image
+          src="/images/globe-network.jpg"
+          alt=""
+          fill
+          className="object-contain"
+          priority
+        />
+      </div>
+
+      {/* Subtle decorative elements */}
+      <div className="absolute top-20 right-10 w-72 h-72 bg-primary-500/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-20 left-10 w-64 h-64 bg-secondary-500/5 rounded-full blur-3xl" />
+
+      <div className="relative max-w-7xl mx-auto px-4 py-20 w-full">
+        <div className="max-w-3xl">
+          {/* Badge */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <span className="inline-flex items-center gap-2 bg-white px-4 py-2 rounded-full text-sm font-medium text-secondary-500 shadow-md border border-secondary-100">
+              <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+              Cabinet d&apos;immigration agree
+            </span>
+          </motion.div>
+
+          {/* Main heading */}
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="mt-8 text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight"
+          >
+            Votre destination de{" "}
+            <span className="text-primary-500 relative">
+              reve
+              <svg
+                className="absolute -bottom-2 left-0 w-full"
+                viewBox="0 0 200 12"
+                fill="none"
+              >
+                <path
+                  d="M2 8C50 2 150 2 198 8"
+                  stroke="#DC2626"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                />
+              </svg>
+            </span>{" "}
+            commence{" "}
+            <span className="text-secondary-500">ici</span>
+          </motion.h1>
+
+          {/* Subtitle */}
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="mt-6 text-lg sm:text-xl text-gray-600 leading-relaxed max-w-2xl"
+          >
+            JT TRADE AND SERVICES vous accompagne dans toutes vos demarches
+            d&apos;immigration vers le{" "}
+            <strong className="text-primary-500">Canada</strong>,
+            l&apos;<strong className="text-secondary-500">Allemagne</strong>, la{" "}
+            <strong className="text-secondary-500">France</strong>, la{" "}
+            <strong className="text-secondary-500">Belgique</strong> et bien
+            plus encore.
+          </motion.p>
+
+          {/* CTA Buttons */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+            className="mt-10 flex flex-col sm:flex-row gap-4"
+          >
+            <Link
+              href="/contact"
+              className="inline-flex items-center justify-center gap-2 bg-primary-500 text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-primary-600 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1"
+            >
+              Commencer maintenant
+              <ArrowRight size={20} />
+            </Link>
+            <Link
+              href="/services"
+              className="inline-flex items-center justify-center gap-2 bg-white text-secondary-500 px-8 py-4 rounded-full font-bold text-lg border-2 border-secondary-500 hover:bg-secondary-500 hover:text-white transition-all duration-300"
+            >
+              Nos services
+            </Link>
+          </motion.div>
+
+          {/* Stats */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.8 }}
+            className="mt-16 grid grid-cols-3 gap-8 max-w-lg"
+          >
+            {[
+              { number: "500+", label: "Clients satisfaits" },
+              { number: "5+", label: "Pays couverts" },
+              { number: "98%", label: "Taux de reussite" },
+            ].map((stat) => (
+              <div key={stat.label}>
+                <p className="text-3xl font-extrabold text-primary-500">
+                  {stat.number}
+                </p>
+                <p className="text-sm text-gray-500 mt-1">{stat.label}</p>
+              </div>
+            ))}
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Decorative flags */}
+      <div className="absolute bottom-8 right-8 hidden lg:flex items-center gap-3">
+        <div className="flex items-center gap-2 bg-white px-3 py-2 rounded-lg shadow-md">
+          <span className="text-2xl">🇨🇦</span>
+          <span className="text-sm font-medium text-gray-600">Canada</span>
+        </div>
+        <div className="flex items-center gap-2 bg-white px-3 py-2 rounded-lg shadow-md">
+          <span className="text-2xl">🇩🇪</span>
+          <span className="text-sm font-medium text-gray-600">Allemagne</span>
+        </div>
+        <div className="flex items-center gap-2 bg-white px-3 py-2 rounded-lg shadow-md">
+          <span className="text-2xl">🇫🇷</span>
+          <span className="text-sm font-medium text-gray-600">France</span>
+        </div>
+        <div className="flex items-center gap-2 bg-white px-3 py-2 rounded-lg shadow-md">
+          <span className="text-2xl">🇧🇪</span>
+          <span className="text-sm font-medium text-gray-600">Belgique</span>
+        </div>
+      </div>
+    </section>
+  );
+}
