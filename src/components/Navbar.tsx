@@ -21,9 +21,9 @@ export default function Navbar() {
       <div className="bg-blue-900 text-white text-sm py-2 hidden md:block">
         <div className="max-w-7xl mx-auto px-4 flex justify-between items-center">
           <div className="flex items-center gap-6">
-            <a href="mailto:j2tandservices@gmail.com" className="flex items-center gap-2 hover:text-red-300 transition">
+            <a href="mailto:contact@jttradeservices.com" className="flex items-center gap-2 hover:text-red-300 transition">
               <Mail size={14} />
-              j2tandservices@gmail.com
+              contact@jttradeservices.com
             </a>
             <span className="flex items-center gap-2">
               <MapPin size={14} />
@@ -85,7 +85,7 @@ export default function Navbar() {
               </Link>
               <div className="pt-3 border-t space-y-2 text-sm text-gray-600">
                 <a href="tel:+237693761778" className="flex items-center gap-2"><Phone size={14} /> +237 693 76 17 78</a>
-                <a href="mailto:j2tandservices@gmail.com" className="flex items-center gap-2"><Mail size={14} /> j2tandservices@gmail.com</a>
+                <a href="mailto:contact@jttradeservices.com" className="flex items-center gap-2"><Mail size={14} /> contact@jttradeservices.com</a>
               </div>
             </div>
           </div>

@@ -44,8 +44,8 @@ export default function Footer() {
           <div>
             <h4 className="font-bold mb-4 text-lg">Contact</h4>
             <div className="space-y-3 text-gray-400 text-sm">
-              <a href="mailto:j2tandservices@gmail.com" className="flex items-center gap-3 hover:text-red-400 transition">
-                <Mail size={16} className="flex-shrink-0" /> j2tandservices@gmail.com
+              <a href="mailto:contact@jttradeservices.com" className="flex items-center gap-3 hover:text-red-400 transition">
+                <Mail size={16} className="flex-shrink-0" /> contact@jttradeservices.com
               </a>
               <a href="tel:+237693761778" className="flex items-center gap-3 hover:text-red-400 transition">
                 <Phone size={16} className="flex-shrink-0" /> +237 693 76 17 78
