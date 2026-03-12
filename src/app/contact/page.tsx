@@ -19,13 +19,24 @@ export default function ContactPage() {
     setLoading(true);
     setError("");
     try {
-      const res = await fetch("/api/contact", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(formData) });
+      const res = await fetch("https://formspree.io/f/xpqydepo", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          _replyto: formData.email,
+          phone: formData.phone,
+          service: formData.service,
+          country: formData.country,
+          message: formData.message,
+        }),
+      });
       if (res.ok) {
         setSubmitted(true);
         setFormData({ name: "", email: "", phone: "", service: "", country: "", message: "" });
       } else {
-        const data = await res.json();
-        setError(data.error || "Une erreur est survenue. Veuillez reessayer.");
+        setError("Une erreur est survenue. Veuillez reessayer.");
       }
     } catch {
       setError("Erreur de connexion. Veuillez reessayer.");
@@ -86,13 +97,13 @@ export default function ContactPage() {
                 </div>
 
                 <div className="space-y-6">
-                  <a href="mailto:j2tandservices@gmail.com" className="flex items-start gap-4 group">
+                  <a href="mailto:contact@jttradeservices.com" className="flex items-start gap-4 group">
                     <div className="w-12 h-12 bg-red-50 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-red-100 transition">
                       <Mail className="text-red-600" size={22} />
                     </div>
                     <div>
                       <p className="font-semibold text-gray-900">Email</p>
-                      <p className="text-gray-600">j2tandservices@gmail.com</p>
+                      <p className="text-gray-600">contact@jttradeservices.com</p>
                     </div>
                   </a>
 
